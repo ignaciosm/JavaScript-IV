@@ -24,6 +24,9 @@ class Instructor extends Person {
   grade(Student, subject){
     return `${Student.name} receives a perfect score on ${subject}`
   }
+  points(Student){
+    return `${Student.name}'s grade is ${Math.min(Math.max(Math.round(Student.grade + (Math.random()*100 - 50)),0),100)}`;
+  }
 }
 
 class Student extends Person {
@@ -31,7 +34,8 @@ class Student extends Person {
     super(props),
     this.previousBackground = props.previousBackground,
     this.className = props.className,
-    this.favSubjects = props.favSubjects
+    this.favSubjects = props.favSubjects,
+    this.grade = props.grade
   }
   listsSubjects(){
     return this.favSubjects;
@@ -87,7 +91,8 @@ const ignacio = new Student({
   age: 39,
   previousBackground: 'Finance',
   className:'WEB24',
-  favSubjects: ['JavaScript','HTML+CSS (I know, not a real language)','Python','Ruby','NodeJS','Java']
+  favSubjects: ['JavaScript','HTML+CSS (I know, not a real language)','Python','Ruby','NodeJS','Java'],
+  grade: 50
 });
 
 const rachel = new Student({
@@ -96,7 +101,8 @@ const rachel = new Student({
   age: 35,
   previousBackground: 'Tech',
   className:'WEB34',
-  favSubjects: ['CSS']
+  favSubjects: ['CSS'],
+  grade: 65
 });
 
 const don = new ProjectManager({
@@ -125,3 +131,4 @@ console.log(ignacio.PRAssignment('Python'));
 console.log(rachel.sprintChallenge('Ruby'));
 console.log(don.standUp('web24'));
 console.log(john.debugsCode(ignacio,ignacio.favSubjects[0]));
+console.log(don.points(ignacio));
