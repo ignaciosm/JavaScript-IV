@@ -18,11 +18,11 @@ class Instructor extends Person {
     this.favLanguage = props.favLanguage,
     this.catchPhrase = props.catchPhrase
   }
-  demo(){
-    return `Today we are learning about ${this.specialty}`;
+  demo(subject){
+    return `Today we are learning about ${subject}`;
   }
-  grade(){
-    return `${this.name} receives a perfect score on ${this.specialty}`
+  grade(Student, subject){
+    return `${Student.name} receives a perfect score on ${subject}`
   }
 }
 
@@ -36,11 +36,25 @@ class Student extends Person {
   listsSubjects(){
     return this.favSubjects;
   }
-  PRAssignment(){
-    return `${this.name} has submitted a PR for ${this.favSubjects[0]}`;
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
   }
-  sprintChallenge(){
-    return `${this.name} has begun sprint challenge on ${this.favSubjects[0]}`;
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+}
+
+class ProjectManager extends Instructor {
+  constructor(props){
+    super(props),
+    this.gradClassName = props.gradClassName,
+    this.favInstructor = props.favInstructor
+  }
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @${channel} standy times!​​​​​`;
+  }
+  debugsCode(Student, subject){
+    return `${this.name} debugs ${Student.name}'s code on ${subject}`;
   }
 }
 
@@ -58,18 +72,56 @@ const fred = new Instructor({
   catchPhrase: `Don't forget the homies`
 });
 
+const brit = new Instructor({
+  name: 'Brit',
+  location: 'Hemming',
+  age: 31,
+  favLanguage: 'JavaScript',
+  specialty: 'Front-end',
+  catchPhrase: 'Eh?!'
+});
+
 const ignacio = new Student({
   name: 'Ignacio',
   location: 'Peru',
   age: 39,
   previousBackground: 'Finance',
   className:'WEB24',
-  favSubjects: ['JavaScript','Python','Ruby']
+  favSubjects: ['JavaScript','HTML+CSS (I know, not a real language)','Python','Ruby','NodeJS','Java']
+});
+
+const rachel = new Student({
+  name: 'Rachel',
+  location: 'California',
+  age: 35,
+  previousBackground: 'Tech',
+  className:'WEB34',
+  favSubjects: ['CSS']
+});
+
+const don = new ProjectManager({
+  name: 'Don',
+  location: 'Somewhere',
+  age: 37,
+  favLanguage: 'JavaScript',
+  specialty: 'Front-end',
+  catchPhrase: 'Hello Lambda'
+});
+
+const john = new ProjectManager({
+  name: 'John',
+  location: 'Mars',
+  age: 37,
+  favLanguage: 'Python',
+  specialty: 'Back-end',
+  catchPhrase: 'I am made up'
 });
 
 console.log(fred.speak());
-console.log(fred.demo());
-console.log(fred.grade());
+console.log(brit.demo('JavaScript'));
+console.log(brit.grade(ignacio,'CSS'));
 console.log(ignacio.listsSubjects());
-console.log(ignacio.PRAssignment());
-console.log(ignacio.sprintChallenge());
+console.log(ignacio.PRAssignment('Python'));
+console.log(rachel.sprintChallenge('Ruby'));
+console.log(don.standUp('web24'));
+console.log(john.debugsCode(ignacio,ignacio.favSubjects[0]));
